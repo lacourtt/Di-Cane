@@ -3,10 +3,10 @@ package com.dicane.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,9 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
@@ -43,17 +45,76 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column {
-                        SearchDogTextField()
-                        FeaturedPager()
-                        CardText()
-                        BecomeBreederButton()
+                    val scrollState = rememberScrollState()
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(enabled = true, state = scrollState)
+                    )   {
+                        Column {
+                            SearchDogTextField()
+                            FeaturedPager()
+                            CardText()
+                            BecomeBreederButton()
+                            Carousel("Mais vendidos")
+                            Carousel("Mais procurados")
+                        }
                     }
                 }
             }
         }
     }
 }
+
+@Composable
+fun Carousel(title: String) {
+    val placeholderImageIds = listOf(
+        R.drawable.corso,
+        R.drawable.puppy,
+        R.drawable.pitcorso,
+        R.drawable.corso,
+        R.drawable.puppy,
+        R.drawable.pitcorso,
+        R.drawable.corso,
+        R.drawable.puppy,
+        R.drawable.pitcorso,
+        R.drawable.corso,
+    )
+    TextSansSerif(text = title)
+    LazyRow {
+        items(placeholderImageIds) { imageId ->
+            CardImage(imageId)
+        }
+    }
+}
+
+@Composable
+fun TextSansSerif(text: String) {
+    Text(text = text,
+        style = TextStyle(
+            fontFamily = FontFamily.SansSerif,
+            fontSize = 24.sp
+        ),
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+fun CardImage(imageId: Int) {
+    Box(Modifier.padding(8.dp)) {
+        Card(
+            Modifier
+                .width(100.dp)
+                .height(150.dp)){
+            Image(
+                bitmap = ImageBitmap.imageResource(id = imageId),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+        }
+    }
+}
+
 @Composable
 fun BecomeBreederButton() {
     Button(onClick = { /*TODO*/ },
