@@ -34,10 +34,12 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dicane.app.LitterDetailsActivity
 import com.dicane.app.R
+import com.dicane.app.ui.theme.*
 import com.google.accompanist.pager.HorizontalPagerIndicator
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -48,7 +50,6 @@ fun ImagesPager() {
         R.drawable.puppy,
         R.drawable.pitcorso,
     )
-    val pagerState = rememberPagerState()
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(34.dp)
@@ -95,13 +96,53 @@ fun ImagesPager() {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
-                TextSansSerif(
-                    text = "Ninhada top"
-                )
-                TextSansSerif(
-                    text = "El Pero de patas"
-                )
+                Column(Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Ninhada de Golden Retriever",
+                        style = TextStyle(
+                            fontFamily = raleway_bold,
+                            fontSize = 20.sp
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Text(
+                        text = " Envio aéreo para todo o Brasil",
+                        style = TextStyle(
+                            fontFamily = raleway_bold,
+                            fontSize = 12.sp,
+                            color = Color(0xFF00B93E)
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        text = " Previsão de nasimento: 10/10/2023",
+                        style = TextStyle(
+                            fontFamily = raleway_bold,
+                            fontSize = 12.sp,
+                            color = Color(0xFF00B93E)
+                        )
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row() {
+                        Text(
+                            text = " Filhotes a partir de ",
+                            style = TextStyle(
+                                fontFamily = raleway_regular,
+                                fontSize = 16.sp,
+                                color = Color(0xFF707070)
+                            )
+                        )
+                        Text(
+                            text = "R$ 7.000,00",
+                            style = TextStyle(
+                                fontFamily = raleway_bold,
+                                fontSize = 16.sp
+                            )
+                        )
+                    }
+                }
+
+
             }
 
         }
@@ -121,7 +162,7 @@ fun FavoriteButton(
         shape = CircleShape,
         modifier = Modifier
             .size(40.dp),
-        color = Color(0x77000000)
+        color = Color(0x48000000)
     ){
         IconToggleButton(
             checked = isFavorite,
@@ -162,7 +203,7 @@ fun Carousel(title: String) {
         R.drawable.pitcorso,
         R.drawable.corso,
     )
-    TextSansSerif(text = title)
+    Text(text = title)
     LazyRow {
         items(placeholderImageIds) { imageId ->
             CardImage(
@@ -210,8 +251,8 @@ fun ActionButton(text: String, onClick: () -> Unit = {}) {
             .fillMaxWidth()
             .padding(16.dp)) {
         Text(text = text, style = TextStyle(
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 24.sp
+            fontFamily = nanum_extrabold,
+            fontSize = 20.sp
         )
         )
     }
@@ -228,8 +269,8 @@ fun DefaultCardText(text: String) {
         ) {
             Text(text = text,
                 style = TextStyle(
-                    fontFamily = FontFamily.SansSerif,
-                    fontSize = 24.sp,
+                    fontFamily = raleway_regular,
+                    fontSize = 16.sp,
                     color = Color.Black
                 ),
                 modifier = Modifier.padding(16.dp)
@@ -243,8 +284,9 @@ fun DefaultCardText(text: String) {
 fun TextSansSerif(text: String) {
     Text(text = text,
         style = TextStyle(
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 24.sp
+            fontFamily = roboto_regular,
+            fontSize = 16.sp,
+            color = Color.Black
         ),
         modifier = Modifier.padding(16.dp)
     )

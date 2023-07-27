@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                             SearchDogTextField()
                             ImagesPager()
                             DefaultCardText("Garantimos alta qualidade e confiabilidade para nossos compradores.")
-                            ActionButton("Seja um criador Di Cane"){
+                            ActionButton("SEJA UM CRIADOR DI CANE"){
                                 startActivity(Intent(this@MainActivity, BreederHomeActivity::class.java))
                             }
                             ImagesPager()
