@@ -3,19 +3,30 @@ package com.dicane.app.compose
 import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
@@ -45,12 +56,11 @@ fun ImagesPager() {
         val pagerState = rememberPagerState(images.size)
 
         Card(
-            modifier = Modifier.padding(10.dp),
             shape = RoundedCornerShape(8.dp),
             backgroundColor = colorResource(id = R.color.onPrimary),
             elevation = 8.dp
         ) {
-            Column(Modifier.padding(16.dp)) {
+            Column {
                 Box(contentAlignment = Alignment.Center) {
                     HorizontalPager(
                         pageCount = images.size,
@@ -75,24 +85,66 @@ fun ImagesPager() {
                             .padding(bottom = 10.dp),
                         pageCount = images.size,
                         pagerState = pagerState,
+                        activeColor = Color.White,
                     )
+                    Box(modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(10.dp)
+                    ) {
+                        FavoriteButton()
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Ninhada top",
-                    style = MaterialTheme.typography.body1,
-                    color = Color.Black
+                TextSansSerif(
+                    text = "Ninhada top"
                 )
-                Text(
-                    text = "El Pero de patas",
-                    style = MaterialTheme.typography.body1,
-                    color = Color.Black
+                TextSansSerif(
+                    text = "El Pero de patas"
                 )
             }
 
         }
     }
+
+}
+
+@Composable
+fun FavoriteButton(
+    modifier: Modifier = Modifier,
+    color: Color = Color(0xffE91E63)
+) {
+
+    var isFavorite by remember { mutableStateOf(false) }
+
+    Surface(
+        shape = CircleShape,
+        modifier = Modifier
+            .size(40.dp),
+        color = Color(0x77000000)
+    ){
+        IconToggleButton(
+            checked = isFavorite,
+            onCheckedChange = {
+                isFavorite = !isFavorite
+            }
+        ) {
+            Icon(
+                tint = color,
+                modifier = modifier.graphicsLayer {
+                    scaleX = 1.3f
+                    scaleY = 1.3f
+                },
+                imageVector = if (isFavorite) {
+                    Icons.Filled.Favorite
+                } else {
+                    Icons.Default.FavoriteBorder
+                },
+                contentDescription = null
+            )
+        }
+    }
+
 
 }
 
