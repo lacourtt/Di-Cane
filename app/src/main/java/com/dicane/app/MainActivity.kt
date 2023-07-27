@@ -35,10 +35,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DiCaneTheme {
+            DiCaneTheme(darkTheme = false) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = colorResource(id = R.color.background)
                 ) {
                     val scrollState = rememberScrollState()
                     Box(modifier = Modifier
@@ -52,8 +52,8 @@ class MainActivity : ComponentActivity() {
                             ActionButton("Seja um criador Di Cane"){
                                 startActivity(Intent(this@MainActivity, BreederHomeActivity::class.java))
                             }
-                            Carousel("Mais vendidos")
-                            Carousel("Mais procurados")
+                            ImagesPager()
+                            ImagesPager()
                         }
                     }
                 }

@@ -10,10 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,24 +40,58 @@ fun ImagesPager() {
     val pagerState = rememberPagerState()
     Box(modifier = Modifier
         .fillMaxWidth()
-        .height(300.dp)
+        .padding(34.dp)
     ) {
-        HorizontalPager(pageCount = images.size, state = pagerState) {
-            Image(
-                painter = painterResource(id = images[it]),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .width(400.dp)
-                    .height(200.dp),
-                contentDescription = "" )
-        }
+        val pagerState = rememberPagerState(images.size)
 
-        HorizontalPagerIndicator(
-            modifier = Modifier
-                .align(Alignment.BottomCenter),
-            pageCount = images.size,
-            pagerState = pagerState,
-        )
+        Card(
+            modifier = Modifier.padding(10.dp),
+            shape = RoundedCornerShape(8.dp),
+            backgroundColor = colorResource(id = R.color.onPrimary),
+            elevation = 8.dp
+        ) {
+            Column(Modifier.padding(16.dp)) {
+                Box(contentAlignment = Alignment.Center) {
+                    HorizontalPager(
+                        pageCount = images.size,
+                        state = pagerState,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
+                    ) {
+                        Image(
+                            painter = painterResource(id = images[it]),
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .height(200.dp)
+                                .fillMaxWidth(),
+                            contentDescription = "",
+
+                        )
+                    }
+                    HorizontalPagerIndicator(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 10.dp),
+                        pageCount = images.size,
+                        pagerState = pagerState,
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Ninhada top",
+                    style = MaterialTheme.typography.body1,
+                    color = Color.Black
+                )
+                Text(
+                    text = "El Pero de patas",
+                    style = MaterialTheme.typography.body1,
+                    color = Color.Black
+                )
+            }
+
+        }
     }
 
 }
@@ -97,7 +128,14 @@ fun CardImage(imageId: Int) {
             Modifier
                 .width(100.dp)
                 .height(150.dp)
-                .clickable { context.startActivity(Intent(context, LitterDetailsActivity::class.java)) },
+                .clickable {
+                    context.startActivity(
+                        Intent(
+                            context,
+                            LitterDetailsActivity::class.java
+                        )
+                    )
+                },
         ){
             Image(
                 bitmap = ImageBitmap.imageResource(id = imageId),
