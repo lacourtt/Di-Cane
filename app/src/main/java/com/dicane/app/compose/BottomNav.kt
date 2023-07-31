@@ -1,16 +1,15 @@
 package com.dicane.app.compose
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
+import com.dicane.app.R
 
 @Composable
 fun BottomNav() {
@@ -23,7 +22,10 @@ fun BottomNav() {
         mutableStateOf("Home")
     }
 
-    BottomNavigation {
+    BottomNavigation(
+        backgroundColor = colorResource(id = R.color.onPrimary),
+        elevation = 4.dp,
+    ) {
         // this is a row scope
         // all items are added horizontally
         bottomMenuItemsList.forEach { menuItem ->

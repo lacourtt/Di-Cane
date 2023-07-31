@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
             DiCaneTheme(darkTheme = false) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = colorResource(id = R.color.background)
                 ) {
                     val scrollState = rememberScrollState()
                     val scaffoldState = rememberScaffoldState()
@@ -49,7 +48,8 @@ class MainActivity : ComponentActivity() {
                         Column(
                             modifier = Modifier
                                 .padding(it)
-                                .verticalScroll(enabled = true, state = scrollState),
+                                .verticalScroll(enabled = true, state = scrollState)
+                                .background(color = colorResource(id = R.color.surfaceVariant)),
                             verticalArrangement = Arrangement.Top,
                             horizontalAlignment = Alignment.CenterHorizontally) {
                             SearchDogTextField()
@@ -72,7 +72,8 @@ class MainActivity : ComponentActivity() {
 fun SearchDogTextField() {
     var text by remember { mutableStateOf(TextFieldValue("")) }
     Box(
-        Modifier.padding(horizontal = 24.dp, vertical = 12.dp)
+        Modifier
+            .padding(horizontal = 24.dp, vertical = 12.dp)
     ) {
         OutlinedTextField(
             placeholder = { Text(text = "Pesquisar raça") },
@@ -87,7 +88,8 @@ fun SearchDogTextField() {
                 )
             },
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .background(color = colorResource(id = R.color.onPrimary)),
             shape = RoundedCornerShape(8.dp),
         )
     }
