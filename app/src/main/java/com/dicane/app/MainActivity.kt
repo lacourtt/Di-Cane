@@ -1,5 +1,6 @@
 package com.dicane.app
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,13 +27,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dicane.app.breeder.BreederHomeActivity
-import com.dicane.app.compose.ActionButton
-import com.dicane.app.compose.Carousel
-import com.dicane.app.compose.DefaultCardText
-import com.dicane.app.compose.ImagesPager
+import com.dicane.app.compose.*
 import com.dicane.app.ui.theme.DiCaneTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,11 +41,17 @@ class MainActivity : ComponentActivity() {
                     color = colorResource(id = R.color.background)
                 ) {
                     val scrollState = rememberScrollState()
-                    Box(modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(enabled = true, state = scrollState)
-                    )   {
-                        Column {
+                    val scaffoldState = rememberScaffoldState()
+                    Scaffold(
+                        scaffoldState = scaffoldState,
+                        bottomBar = { BottomNav()}
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .padding(it)
+                                .verticalScroll(enabled = true, state = scrollState),
+                            verticalArrangement = Arrangement.Top,
+                            horizontalAlignment = Alignment.CenterHorizontally) {
                             SearchDogTextField()
                             ImagesPager()
                             DefaultCardText("Garantimos alta qualidade e confiabilidade para nossos compradores.")
