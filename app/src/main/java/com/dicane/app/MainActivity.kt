@@ -26,9 +26,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.dicane.app.breeder.BreederHomeActivity
 import com.dicane.app.compose.*
+import com.dicane.app.navigation.BottomNavGraph
 import com.dicane.app.ui.theme.DiCaneTheme
+import com.dicane.app.ui.theme.HomeScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -36,33 +41,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DiCaneTheme(darkTheme = false) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    val scrollState = rememberScrollState()
-                    val scaffoldState = rememberScaffoldState()
-                    Scaffold(
-                        scaffoldState = scaffoldState,
-                        bottomBar = { BottomNav()}
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(it)
-                                .verticalScroll(enabled = true, state = scrollState)
-                                .background(color = colorResource(id = R.color.surfaceVariant)),
-                            verticalArrangement = Arrangement.Top,
-                            horizontalAlignment = Alignment.CenterHorizontally) {
-                            SearchDogTextField()
-                            ImagesPager()
-                            DefaultCardText("Garantimos alta qualidade e confiabilidade para nossos compradores.")
-                            ActionButton("SEJA UM CRIADOR DI CANE"){
-                                startActivity(Intent(this@MainActivity, BreederHomeActivity::class.java))
-                            }
-                            ImagesPager()
-                            ImagesPager()
-                        }
-                    }
-                }
+                HomeScreen()
             }
         }
     }

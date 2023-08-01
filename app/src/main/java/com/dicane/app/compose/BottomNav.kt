@@ -1,71 +1,56 @@
 package com.dicane.app.compose
 
-import android.widget.Toast
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.dicane.app.R
+import com.dicane.app.navigation.BottomBarScreen
+import com.dicane.app.navigation.BottomBarScreen.Home
+import com.dicane.app.navigation.BottomBarScreen.Favorites
+import com.dicane.app.navigation.BottomBarScreen.Reservations
+import com.dicane.app.navigation.BottomBarScreen.Account
 
 @Composable
-fun BottomNav() {
-    // items list
-    val bottomMenuItemsList = BottomMenuItem.prepareBottomMenu()
+fun BottomNav(navHostController: NavHostController) {
+    val screensList = listOf(
+        Home, Favorites, Reservations, Account
+    )
 
-    val contextForToast = LocalContext.current.applicationContext
-
-    var selectedItem by remember {
-        mutableStateOf("Home")
-    }
+    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     BottomNavigation(
         backgroundColor = colorResource(id = R.color.onPrimary),
-        elevation = 4.dp,
+        elevation = 6.dp,
     ) {
         // this is a row scope
         // all items are added horizontally
-        bottomMenuItemsList.forEach { menuItem ->
-            // adding each item
-            BottomNavigationItem(
-                selected = (selectedItem == menuItem.label),
-                onClick = {
-                    selectedItem = menuItem.label
-                    Toast.makeText(
-                        contextForToast,
-                        menuItem.label, Toast.LENGTH_SHORT
-                    ).show()
-                },
-                icon = {
-                    Icon(
-                        imageVector = menuItem.icon,
-                        contentDescription = menuItem.label
-                    )
-                },
-                label = {
-                    Text(text = menuItem.label)
-                },
-                enabled = true,
-            )
+        screensList.forEach { screen ->
+            AddItem(screen, currentDestination, navHostController)
         }
     }
 }
 
-data class BottomMenuItem(val label: String, val icon: ImageVector) {
-    companion object {
-        fun prepareBottomMenu(): List<BottomMenuItem> {
-            val bottomMenuItemsList = arrayListOf<BottomMenuItem>()
-
-            // add menu items
-            bottomMenuItemsList.add(BottomMenuItem(label = "Home", icon = Icons.Filled.Home))
-            bottomMenuItemsList.add(BottomMenuItem(label = "Favoritos", icon = Icons.Filled.Favorite))
-            bottomMenuItemsList.add(BottomMenuItem(label = "Reservas", icon = Icons.Filled.ShoppingCart))
-            bottomMenuItemsList.add(BottomMenuItem(label = "Sua Conta", icon = Icons.Filled.Person))
-
-            return bottomMenuItemsList
-        }
-    }
+@Composable
+fun RowScope.AddItem(
+    screen: BottomBarScreen,
+    currentDestination: NavDestination?,
+    navController: NavController
+) {
+    BottomNavigationItem(
+        label = {Text(text = screen.title)},
+        icon = {Icon(imageVector = screen.icon, contentDescription = "Navigation Icon")},
+        selected = currentDestination?.hierarchy?.any {
+            it.route == screen.route
+        } == true,
+        onClick = {
+            navController.navigate(screen.route)
+        })
 }
