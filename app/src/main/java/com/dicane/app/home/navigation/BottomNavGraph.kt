@@ -1,14 +1,14 @@
-package com.dicane.app.navigation
+package com.dicane.app.home.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dicane.app.AccountScreen
-import com.dicane.app.HomeScreen
-import com.dicane.app.ui.theme.FavoritesScreen
-import com.dicane.app.ui.theme.ReservationsScreen
+import com.dicane.app.home.screens.AccountScreen
+import com.dicane.app.home.screens.HomeScreen
+import com.dicane.app.home.screens.FavoritesScreen
+import com.dicane.app.home.screens.ReservationsScreen
 
 @Composable
 fun BottomNavGraph(modifier: Modifier, navController: NavHostController) {

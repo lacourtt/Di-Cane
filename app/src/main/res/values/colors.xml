@@ -32,6 +32,8 @@
     <color name="surfaceTint">#6A5F00</color>
     <color name="outlineVariant">#CCC6B5</color>
     <color name="scrim">#000000</color>
+    <color name="off">#AAAAAA</color>
+
 
     <color name="md_theme_dark_primary">#DBC831</color>
     <color name="md_theme_dark_onPrimary">#373100</color>

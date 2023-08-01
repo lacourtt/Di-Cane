@@ -20,8 +20,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import com.dicane.app.R
 import com.dicane.app.compose.*
-import com.dicane.app.navigation.BottomNavGraph
+import com.dicane.app.home.navigation.BottomNavGraph
 import com.dicane.app.ui.theme.DiCaneTheme
 
 class MainActivity : ComponentActivity() {
@@ -46,38 +47,10 @@ fun MainScreen() {
     }
 }
 
-@Composable
-fun SearchDogTextField() {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    Box(
-        Modifier
-            .padding(horizontal = 24.dp, vertical = 12.dp)
-    ) {
-        OutlinedTextField(
-            placeholder = { Text(text = "Pesquisar raça") },
-            value = text,
-            onValueChange = { newText ->
-                text = newText
-            },
-            trailingIcon = {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_search_grey),
-                    contentDescription = ""
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = colorResource(id = R.color.onPrimary)),
-            shape = RoundedCornerShape(8.dp),
-        )
-    }
-
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     DiCaneTheme {
-        ImagesPager()
+        MainScreen()
     }
 }

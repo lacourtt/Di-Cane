@@ -1,20 +1,26 @@
-package com.dicane.app
+package com.dicane.app.home.screens
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import com.dicane.app.compose.ActionButton
-import com.dicane.app.compose.DefaultCardText
-import com.dicane.app.compose.ImagesPager
+import androidx.compose.ui.unit.dp
+import com.dicane.app.R
+import com.dicane.app.compose.*
+import com.dicane.app.litter.LitterDetailsActivity
 
 @Composable
 fun HomeScreen() {
+    val context = LocalContext.current
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -23,12 +29,20 @@ fun HomeScreen() {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         SearchDogTextField()
-        ImagesPager()
-        DefaultCardText("Garantimos alta qualidade e confiabilidade para nossos compradores.")
-        ActionButton("SEJA UM CRIADOR DI CANE"){
+        SaleCard{
+            startLitterDetailsActivity(context)
+        }
+        GreenTextCard(
+            text = "Garantimos alta qualidade e confiabilidade para nossos compradores."
+        )
+        ActionButton(text = "Seja um Criador Di Cane"){
 //                startActivity(Intent(this@MainActivity, BreederHomeActivity::class.java))
         }
-        ImagesPager()
-        ImagesPager()
+        SaleCard{startLitterDetailsActivity(context)}
+        SaleCard{startLitterDetailsActivity(context)}
     }
+}
+
+fun startLitterDetailsActivity(context: Context) {
+    context.startActivity(Intent(context, LitterDetailsActivity::class.java))
 }

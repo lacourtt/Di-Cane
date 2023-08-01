@@ -12,11 +12,11 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.dicane.app.R
-import com.dicane.app.navigation.BottomBarScreen
-import com.dicane.app.navigation.BottomBarScreen.Home
-import com.dicane.app.navigation.BottomBarScreen.Favorites
-import com.dicane.app.navigation.BottomBarScreen.Reservations
-import com.dicane.app.navigation.BottomBarScreen.Account
+import com.dicane.app.home.navigation.BottomBarScreen
+import com.dicane.app.home.navigation.BottomBarScreen.Home
+import com.dicane.app.home.navigation.BottomBarScreen.Favorites
+import com.dicane.app.home.navigation.BottomBarScreen.Reservations
+import com.dicane.app.home.navigation.BottomBarScreen.Account
 
 @Composable
 fun BottomBar(navHostController: NavHostController) {

@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.dicane.app.compose.ActionButton
-import com.dicane.app.compose.TextSansSerif
+import com.dicane.app.compose.TextDefault
 import com.dicane.app.ui.theme.DiCaneTheme
 
 class BuyActivity : ComponentActivity() {
@@ -29,13 +29,14 @@ class BuyActivity : ComponentActivity() {
                 ) {
                     val scrollState = rememberScrollState()
                     Column(
-                        Modifier.fillMaxSize()
+                        Modifier
+                            .fillMaxSize()
                             .verticalScroll(enabled = true, state = scrollState)
                     ) {
-                        TextSansSerif(text = "Filhotes disponíveis: 3")
-                        TextSansSerif(text = "Escolha antes dos outros compradores!")
+                        Text(text = "Filhotes disponíveis: 3")
+                        TextDefault(text = "Escolha antes dos outros compradores!")
                         ActionButton(text = "Reservar segunda escolha por R$ 8.000")
-                        TextSansSerif(text = "Reservar sem prioridade")
+                        TextDefault(text = "Reservar sem prioridade")
                         ActionButton(text = "Reservar por R$ 6.000")
                     }
                 }

@@ -1,4 +1,4 @@
-package com.dicane.app
+package com.dicane.app.home.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

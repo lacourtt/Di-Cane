@@ -3,12 +3,13 @@ package com.dicane.app.compose
 import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,28 +24,29 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dicane.app.LitterDetailsActivity
 import com.dicane.app.R
+import com.dicane.app.litter.LitterDetailsActivity
 import com.dicane.app.ui.theme.*
 import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.pagerTabIndicatorOffset
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ImagesPager() {
+fun SaleCard(click: () -> Unit = {}) {
     val images = listOf(
         R.drawable.corso,
         R.drawable.puppy,
@@ -52,14 +54,14 @@ fun ImagesPager() {
     )
     Box(modifier = Modifier
         .fillMaxWidth()
-        .padding(34.dp)
+        .defaultComponentPadding()
     ) {
         val pagerState = rememberPagerState(images.size)
-
         Card(
+            Modifier.clickable { click() },
             shape = RoundedCornerShape(8.dp),
             backgroundColor = colorResource(id = R.color.onPrimary),
-            elevation = 8.dp
+            //elevation = 5.dp
         ) {
             Column {
                 Box(contentAlignment = Alignment.Center) {
@@ -97,55 +99,94 @@ fun ImagesPager() {
                 }
 
                 Column(Modifier.padding(16.dp)) {
-                    Text(
-                        text = "Ninhada de Golden Retriever",
-                        style = TextStyle(
-                            fontFamily = raleway_bold,
-                            fontSize = 20.sp
-                        )
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Text(
-                        text = " Envio aéreo para todo o Brasil",
-                        style = TextStyle(
-                            fontFamily = raleway_bold,
-                            fontSize = 12.sp,
-                            color = Color(0xFF00B93E)
-                        )
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = " Previsão de nasimento: 10/10/2023",
-                        style = TextStyle(
-                            fontFamily = raleway_bold,
-                            fontSize = 12.sp,
-                            color = Color(0xFF00B93E)
-                        )
-                    )
-                    Spacer(modifier = Modifier.height(6.dp))
-                    Row() {
+                    TextTitle(text = "Ninhada de Golden Retriever")
+                    TextBoldGreen(text = " Envio aéreo para todo o Brasil")
+                    TextBoldGreen(text = " Previsão de nascimento: 10/10/2023")
+                    Row {
+                        TextDefaultThin(text = " Filhotes a partir de ")
+                        TextHighLightBlack(text = "R$ 7.000,00")
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun ImagesPager(images: List<Int>, pagerState: PagerState) {
+    HorizontalPager(
+        pageCount = images.size,
+        state = pagerState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
+    ) {
+        Box {
+            Image(
+                painter = painterResource(id = images[it]),
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .height(200.dp)
+                    .fillMaxWidth(),
+                contentDescription = "",
+            )
+            Box(
+                Modifier
+                    .padding(10.dp)
+                    .size(width = 40.dp, height = 25.dp)
+                    .align(Alignment.BottomEnd),
+            ){
+                Surface(
+                    shape = RoundedCornerShape(5.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .align(Alignment.Center),
+                    color = Color(0x86000000)
+                ) {
+                    Box {
                         Text(
-                            text = " Filhotes a partir de ",
+                            modifier = Modifier
+                                .align(Alignment.Center),
+                            text = "${it+1}/${images.size}",
                             style = TextStyle(
-                                fontFamily = raleway_regular,
-                                fontSize = 16.sp,
-                                color = Color(0xFF707070)
-                            )
-                        )
-                        Text(
-                            text = "R$ 7.000,00",
-                            style = TextStyle(
-                                fontFamily = raleway_bold,
-                                fontSize = 16.sp
+                                fontFamily = roboto_regular,
+                                fontSize = 14.sp,
+                                color = Color.White
                             )
                         )
                     }
+
                 }
-
-
             }
-
         }
+    }
+}
+
+@Composable
+fun SearchDogTextField() {
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+    Box(
+        Modifier
+            .padding(horizontal = 24.dp, vertical = 12.dp)
+    ) {
+        OutlinedTextField(
+            placeholder = { Text(text = "Pesquisar raça") },
+            value = text,
+            onValueChange = { newText ->
+                text = newText
+            },
+            trailingIcon = {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_search_grey),
+                    contentDescription = ""
+                )
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = colorResource(id = R.color.onPrimary)),
+            shape = RoundedCornerShape(8.dp),
+        )
     }
 
 }
@@ -209,7 +250,6 @@ fun Carousel(title: String) {
             CardImage(
                 imageId, )
         }
-
     }
 }
 
@@ -241,56 +281,74 @@ fun CardImage(imageId: Int) {
 }
 
 @Composable
-fun ActionButton(text: String, onClick: () -> Unit = {}) {
-    Button(onClick = { onClick() },
+fun ActionButton(modifier: Modifier? = null, text: String, color: Int = R.color.primaryContainer, onClick: () -> Unit = {}) {
+    val modifier = modifier ?: Modifier
+    Button(
+        onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = R.color.primaryContainer),
+            backgroundColor = colorResource(id = color),
             contentColor = Color.Black
         ),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)) {
-        Text(text = text, style = TextStyle(
-            fontFamily = nanum_extrabold,
-            fontSize = 20.sp
-        )
+            .defaultComponentPadding()
+    ) {
+        Text(
+            text = text,
+            style = TextStyle(
+            fontFamily = raleway_bold,
+            fontSize = 18.sp)
         )
     }
 }
 
 @Composable
-fun DefaultCardText(text: String) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .padding(16.dp)) {
+fun GreenTextCard(modifier: Modifier? = null, text: String) {
+    val modif = modifier ?: Modifier.defaultComponentPadding()
+
+    Box(modifier = modif.fillMaxWidth()) {
         Card(
             shape = RoundedCornerShape(8.dp),
             backgroundColor = colorResource(id = R.color.tertiaryContainer),
         ) {
-            Text(text = text,
-                style = TextStyle(
-                    fontFamily = raleway_regular,
-                    fontSize = 16.sp,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(16.dp)
-            )
+            TextDefault(Modifier.padding(10.dp), text = text)
         }
     }
 
 }
 
 @Composable
-fun TextSansSerif(text: String) {
-    Text(text = text,
-        style = TextStyle(
-            fontFamily = roboto_regular,
-            fontSize = 16.sp,
-            color = Color.Black
-        ),
-        modifier = Modifier.padding(16.dp)
-    )
+fun PriorityReservation(price: String, priority: String, sold: Boolean = false, onClick: () -> Unit = {}) {
+    Row(
+        Modifier.padding(vertical = 7.dp)
+    ){
+        Column(Modifier.weight(5f)) {
+            TextTitle(text = price)
+            TextDefaultThin(text = priority)
+        }
+
+        val modifier = Modifier
+            .weight(5f)
+
+        if (sold) {
+            ActionButton(
+                modifier = modifier,
+                text = "Vendido",
+                color = R.color.off
+            ) { }
+        } else {
+            ActionButton(
+                modifier = modifier,
+                text = "Reservar"
+            ) {
+                onClick()
+            }
+        }
+
+    }
 }
+
+fun Modifier.defaultComponentPadding() = this.padding(start = 15.dp, end = 15.dp, bottom = 14.dp)
 
 @Composable
 fun SpaceDefault() {

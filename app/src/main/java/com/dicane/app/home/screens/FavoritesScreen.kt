@@ -1,4 +1,4 @@
-package com.dicane.app.ui.theme
+package com.dicane.app.home.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun ReservationsScreen() {
+fun FavoritesScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -20,7 +20,7 @@ fun ReservationsScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "RESERVATIONS",
+            text = "FAVORITES",
             fontSize = MaterialTheme.typography.h3.fontSize,
             fontWeight = FontWeight.Bold,
             color = Color.White

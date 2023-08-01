@@ -22,7 +22,7 @@
             android:label="@string/title_activity_breeder_home"
             android:theme="@style/Theme.DiCane" />
         <activity
-            android:name=".LitterDetailsActivity"
+            android:name=".litter.LitterDetailsActivity"
             android:exported="false"
             android:label="@string/title_activity_litter_details"
             android:theme="@style/Theme.DiCane" />
