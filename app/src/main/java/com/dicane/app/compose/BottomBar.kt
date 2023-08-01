@@ -1,5 +1,6 @@
 package com.dicane.app.compose
 
+import android.util.Log
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -18,7 +19,7 @@ import com.dicane.app.navigation.BottomBarScreen.Reservations
 import com.dicane.app.navigation.BottomBarScreen.Account
 
 @Composable
-fun BottomNav(navHostController: NavHostController) {
+fun BottomBar(navHostController: NavHostController) {
     val screensList = listOf(
         Home, Favorites, Reservations, Account
     )

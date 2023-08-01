@@ -1,5 +1,6 @@
 package com.dicane.app.ui.theme
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,23 +13,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.dicane.app.R
 import com.dicane.app.SearchDogTextField
 import com.dicane.app.compose.ActionButton
-import com.dicane.app.compose.BottomNav
+import com.dicane.app.compose.BottomBar
 import com.dicane.app.compose.DefaultCardText
 import com.dicane.app.compose.ImagesPager
 import com.dicane.app.navigation.BottomNavGraph
 
 @Composable
-fun HomeScreen() {
-    val navController = rememberNavController()
+fun HomeScreen(navController: NavHostController) {
     val scaffoldState = rememberScaffoldState()
     val scrollState = rememberScrollState()
     Scaffold(
         scaffoldState = scaffoldState,
-        bottomBar = { BottomNav(navController) }
+        bottomBar = { BottomBar(navController) }
     ) {
         Column(
             modifier = Modifier
@@ -46,7 +47,6 @@ fun HomeScreen() {
             ImagesPager()
             ImagesPager()
         }
-        BottomNavGraph(Modifier.padding(it), navController = navController)
     }
 
 }

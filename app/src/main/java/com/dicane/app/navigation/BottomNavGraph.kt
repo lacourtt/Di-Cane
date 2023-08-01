@@ -1,5 +1,6 @@
 package com.dicane.app.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -11,15 +12,15 @@ import com.dicane.app.ui.theme.HomeScreen
 import com.dicane.app.ui.theme.ReservationsScreen
 
 @Composable
-fun BottomNavGraph(modifier: Modifier, navController: NavHostController) {
+fun BottomNavGraph(navController: NavHostController) {
 
  NavHost(
-     modifier = modifier,
      navController = navController,
      startDestination = BottomBarScreen.Home.route
  ) {
-    composable(BottomBarScreen.Home.route) {
-            HomeScreen()
+        composable(BottomBarScreen.Home.route) {
+            Log.d("igor", "HomeScreen called")
+            HomeScreen(navController)
         }
         composable(BottomBarScreen.Favorites.route) {
             FavoritesScreen()

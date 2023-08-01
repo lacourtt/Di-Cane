@@ -40,8 +40,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
             DiCaneTheme(darkTheme = false) {
-                HomeScreen()
+                BottomNavGraph(navController = navController)
             }
         }
     }
