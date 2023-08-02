@@ -35,7 +35,7 @@ fun HomeScreen() {
         GreenTextCard(
             text = "Garantimos alta qualidade e confiabilidade para nossos compradores."
         )
-        ActionButton(text = "Seja um Criador Di Cane"){
+        ActionButton(text = "SEJA UM CRIADOR DI CANE") {
 //                startActivity(Intent(this@MainActivity, BreederHomeActivity::class.java))
         }
         SaleCard{startLitterDetailsActivity(context)}

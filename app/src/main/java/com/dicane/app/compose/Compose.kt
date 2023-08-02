@@ -1,10 +1,7 @@
 package com.dicane.app.compose
 
 import android.content.Intent
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -281,22 +278,27 @@ fun CardImage(imageId: Int) {
 }
 
 @Composable
-fun ActionButton(modifier: Modifier? = null, text: String, color: Int = R.color.primaryContainer, onClick: () -> Unit = {}) {
-    val modifier = modifier ?: Modifier
+fun ActionButton(
+    modifier: Modifier? = null,
+    text: String,
+    color: Int = R.color.accentColor3,
+    onClick: () -> Unit = {}
+) {
+    val modifier = modifier ?: Modifier.defaultComponentPadding()
     Button(
         onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = colorResource(id = color),
-            contentColor = Color.Black
+            contentColor = Color.White
         ),
+        shape = RoundedCornerShape(20.dp),
         modifier = modifier
             .fillMaxWidth()
-            .defaultComponentPadding()
     ) {
         Text(
             text = text,
             style = TextStyle(
-            fontFamily = raleway_bold,
+            fontFamily = roboto_regular,
             fontSize = 18.sp)
         )
     }
@@ -327,23 +329,30 @@ fun PriorityReservation(price: String, priority: String, sold: Boolean = false, 
             TextDefaultThin(text = priority)
         }
 
-        val modifier = Modifier
+        Box(
+            Modifier
             .weight(5f)
+        ) {
+            val modifier = Modifier
+                .align(Alignment.Center)
 
-        if (sold) {
-            ActionButton(
-                modifier = modifier,
-                text = "Vendido",
-                color = R.color.off
-            ) { }
-        } else {
-            ActionButton(
-                modifier = modifier,
-                text = "Reservar"
-            ) {
-                onClick()
+            if (sold) {
+                ActionButton(
+                    modifier = modifier,
+                    text = "Vendido",
+                    color = R.color.off,
+                ) { }
+            } else {
+                ActionButton(
+                    modifier = modifier,
+                    text = "Reservar",
+                    color = R.color.accentColor2,
+                ) {
+                    onClick()
+                }
             }
         }
+
 
     }
 }

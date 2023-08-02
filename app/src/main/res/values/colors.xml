@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="seed">#b9a700</color>
+    <color name="seed">#B3B3B3</color>
     <color name="primary">#6A5F00</color>
     <color name="onPrimary">#FFFFFF</color>
     <color name="primaryContainer">#F9E44D</color>
@@ -33,7 +33,10 @@
     <color name="outlineVariant">#CCC6B5</color>
     <color name="scrim">#000000</color>
     <color name="off">#AAAAAA</color>
-
+    <color name="accentColor">#ff005a</color>
+    <color name="accentColor2">#1757B8</color>
+    <color name="accentColor3">#303030</color>
+    <color name="accentColor4">#FFFFFF</color>
 
     <color name="md_theme_dark_primary">#DBC831</color>
     <color name="md_theme_dark_onPrimary">#373100</color>
@@ -60,7 +63,6 @@
     <color name="md_theme_dark_outline">#959181</color>
     <color name="md_theme_dark_inverseOnSurface">#1D1C16</color>
     <color name="md_theme_dark_inverseSurface">#E7E2D9</color>
-    <color name="md_theme_dark_inversePrimary">#6A5F00</color>
     <color name="md_theme_dark_shadow">#000000</color>
     <color name="md_theme_dark_surfaceTint">#DBC831</color>
     <color name="md_theme_dark_outlineVariant">#4A4739</color>
