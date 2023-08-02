@@ -96,6 +96,9 @@ class BuyActivity : ComponentActivity() {
                         TextTitleLarge(text = "Política de cancelamento")
                         TextDefault(text = "Você pode cancelar a compra até 7 dias antes do envio.")
 
+                        thisPageDivider()
+                        TextDefault(text = "Ao clicar em \"Concluir compra e pagar\", você concorda com os Termos de Uso e Política de Privacidade da Di Cane.")
+
                         SpaceLarge()
                         Box(
                             modifier = Modifier.fillMaxWidth(),

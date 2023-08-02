@@ -38,8 +38,8 @@ fun HomeScreen() {
         GreenTextCard(
             text = "Garantimos alta qualidade e confiabilidade para nossos compradores."
         )
-        ActionButtonDark(modifier = Modifier.fillMaxWidth(), text = "SEJA UM CRIADOR DI CANE") {
-            context.startActivity(Intent(context, BreederHomeActivity::class.java))
+        ActionButtonDark(modifier = Modifier.fillMaxWidth(), text = "Seja um criador Di Cane") {
+            BreederHomeActivity.startActivity(context)
         }
         thisPageDivider()
         SaleCard{
