@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -39,7 +40,6 @@ import com.dicane.app.R
 import com.dicane.app.litter.LitterDetailsActivity
 import com.dicane.app.ui.theme.*
 import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.pagerTabIndicatorOffset
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -51,7 +51,7 @@ fun SaleCard(click: () -> Unit = {}) {
     )
     Box(modifier = Modifier
         .fillMaxWidth()
-        .defaultComponentPadding()
+        .defaultBottomPadding()
     ) {
         val pagerState = rememberPagerState(images.size)
         Card(
@@ -165,7 +165,7 @@ fun SearchDogTextField() {
     var text by remember { mutableStateOf(TextFieldValue("")) }
     Box(
         Modifier
-            .padding(horizontal = 24.dp, vertical = 12.dp)
+            .padding(vertical = 12.dp)
     ) {
         OutlinedTextField(
             placeholder = { Text(text = "Pesquisar raça") },
@@ -277,23 +277,88 @@ fun CardImage(imageId: Int) {
     }
 }
 
+
 @Composable
-fun ActionButton(
-    modifier: Modifier? = null,
+fun ActionButtonBlue(
+    modifier: Modifier = Modifier.defaultBottomPadding(),
     text: String,
-    color: Int = R.color.accentBlack,
     onClick: () -> Unit = {}
 ) {
-    val modifier = modifier ?: Modifier.defaultComponentPadding()
+    ActionButton(modifier = modifier, text = text, buttonType = ButtonType.BLUE, onClick = onClick)
+}
+
+@Composable
+fun ActionButtonDark(
+    modifier: Modifier = Modifier.defaultBottomPadding(),
+    text: String,
+    onClick: () -> Unit = {}
+) {
+    ActionButton(modifier = modifier, text = text, buttonType = ButtonType.DARK, onClick = onClick)
+}
+
+@Composable
+fun ActionButtonOff(
+    modifier: Modifier = Modifier.defaultBottomPadding(),
+    text: String,
+    onClick: () -> Unit = {}
+) {
+    ActionButton(modifier = modifier, text = text, buttonType = ButtonType.OFF, onClick = onClick)
+}
+
+@Composable
+fun ActionButtonWhite(
+    modifier: Modifier = Modifier.defaultBottomPadding(),
+    text: String,
+    onClick: () -> Unit = {}
+) {
+    ActionButton(modifier = modifier, text = text, buttonType = ButtonType.WHITE, onClick = onClick)
+}
+
+@Composable
+fun ActionButton(
+    modifier: Modifier = Modifier.defaultBottomPadding(),
+    text: String,
+    buttonType: ButtonType,
+    onClick: () -> Unit = {}
+) {
+
+    var border: BorderStroke? = null
+    var shape: Shape? = null
+
+    val colors = when(buttonType) {
+        ButtonType.DARK -> {
+            ButtonDefaults.buttonColors(
+                backgroundColor = colorResource(id = R.color.accentBlack),
+                contentColor = Color.White
+            )
+        }
+        ButtonType.BLUE -> {
+            ButtonDefaults.buttonColors(
+                backgroundColor = colorResource(id = R.color.accentBlue),
+                contentColor = Color.White
+            )
+        }
+        ButtonType.WHITE -> {
+            border = BorderStroke(2.dp, Color.Black)
+            shape = RoundedCornerShape(8.dp)
+            ButtonDefaults.buttonColors(
+                backgroundColor = Color.White,
+                contentColor = Color.Black
+            )
+        }
+        ButtonType.OFF -> {
+            ButtonDefaults.buttonColors(
+                backgroundColor = Color.Gray,
+                contentColor = Color.White
+            )
+        }
+    }
     Button(
         onClick = { onClick() },
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = colorResource(id = color),
-            contentColor = Color.White
-        ),
-        shape = RoundedCornerShape(20.dp),
+        colors = colors,
+        shape = shape ?: RoundedCornerShape(20.dp),
+        border = border,
         modifier = modifier
-            .fillMaxWidth()
     ) {
         Text(
             text = text,
@@ -305,10 +370,8 @@ fun ActionButton(
 }
 
 @Composable
-fun GreenTextCard(modifier: Modifier? = null, text: String) {
-    val modif = modifier ?: Modifier.defaultComponentPadding()
-
-    Box(modifier = modif.fillMaxWidth()) {
+fun GreenTextCard(modifier: Modifier = Modifier.defaultBottomPadding(), text: String) {
+    Box(modifier = modifier.fillMaxWidth()) {
         Card(
             shape = RoundedCornerShape(8.dp),
             backgroundColor = colorResource(id = R.color.tertiaryContainer),
@@ -333,27 +396,26 @@ fun PriorityReservation(price: String, priority: String, sold: Boolean = false, 
             .weight(5f)
 
         if (sold) {
-            ActionButton(
+            ActionButtonOff(
                 modifier = modifier,
                 text = "Vendido",
-                color = R.color.off,
             ) { }
         } else {
-            ActionButton(
+            ActionButtonBlue(
                 modifier = modifier,
                 text = "Reservar",
-                color = R.color.accentBlue,
             ) {
                 onClick()
             }
         }
-
     }
 }
 
-fun Modifier.defaultComponentPadding() = this.padding(start = 15.dp, end = 15.dp, bottom = 14.dp)
+fun Modifier.defaultBottomPadding() = this.padding(bottom = 14.dp)
 
-@Composable
-fun SpaceDefault() {
-    Spacer(modifier = Modifier.height(16.dp))
+enum class ButtonType {
+    DARK,
+    BLUE,
+    WHITE,
+    OFF
 }

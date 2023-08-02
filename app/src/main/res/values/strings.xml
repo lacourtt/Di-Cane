@@ -3,4 +3,5 @@
     <string name="title_activity_litter_details">LitterDetailsActivity</string>
     <string name="title_activity_breeder_home">BreederHomeActivity</string>
     <string name="title_activity_buy">BuyActivity</string>
+    <string name="title_activity_dog_details">DogDetailsActivity</string>
 </resources>

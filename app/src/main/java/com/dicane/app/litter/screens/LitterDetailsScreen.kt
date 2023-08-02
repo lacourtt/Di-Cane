@@ -41,37 +41,48 @@ fun LitterDetailsScreen(context: Context) {
             Column(modifier = Modifier
                 .padding(horizontal = 24.dp)
             ) {
-                TextTitle(text = "Quando chega até você")
-                TextDefault(text = "Previsão de nascimento: 10/10/2023")
-                TextDefault(text = "Estarão prontos com 45 dias de vida")
-                TextDefault(text = "Previsão de envio: 25/11/2023")
-                TextDefault(text = "Previsão de chegada: 27/11/2023")
-                SpaceDefault()
+                SpaceMedium()
+                TextTitle(text = "Características físicas")
+                TextDefault(text = "Faixa de peso quando adulto: 30kg - 50kg")
+                TextDefault(text = "Faixa de altura quando adulto: 50cm - 70cm de cernelha (ombro do cachorro)")
+                TextDefault(text = "Solta pêlo: Moderadamente")
+
+                SpaceMedium()
                 TextTitle(text = "O criador garante")
                 TextDefault(text = "Os cães virão vermifugados")
                 TextDefault(text = "Vacinas V10, raiva")
                 TextDefault(text = "Envio aéreo")
                 TextDefault(text = "Pedigree")
                 TextDefault(text = "Microchip")
-                SpaceDefault()
+
+                SpaceMedium()
+                TextTitle(text = "Quando chega até você")
+                TextDefault(text = "Previsão de nascimento: 10/10/2023")
+                TextDefault(text = "Estarão prontos com 45 dias de vida")
+                TextDefault(text = "Previsão de envio: 25/11/2023")
+                TextDefault(text = "Previsão de chegada: 27/11/2023")
+
+                SpaceMedium()
                 TextTitle(text = "Quantidade de filhotes")
                 TextDefault(text = "Previsão de quantidade de filhotes: 10")
                 TextDefault(text = "Quantidade confirmada por ultra-som: 10")
-                SpaceDefault()
+
+                SpaceMedium()
                 TextTitle(text = "Prioridade de escolha")
                 GreenTextCard(modifier = Modifier, text = "Existe uma prioridade de escolha dos filhotes. \n\nSe você comprar a prioridade 1, você pode escolher qualquer filhote da ninhada. \n\nSe você comprar a prioridade 2, uma pessoa ja terá escolhido um dos filhotes. \n\nSe comprar a 3, duas pessoas já terão escolhido antes de você, e assim por diante.")
-                SpaceDefault()
+
+                SpaceMedium()
                 Divider()
                 PriorityReservation("R$ 10.000,00", "Prioridade 1", sold = true ) {
-                    context.startActivity(Intent(context, BuyActivity::class.java))
+                    BuyActivity.startActivity(context)
                 }
                 Divider()
                 PriorityReservation("R$ 8.000,00", "Prioridade 2" ) {
-                    context.startActivity(Intent(context, BuyActivity::class.java))
+                    BuyActivity.startActivity(context)
                 }
                 Divider()
                 PriorityReservation("R$ 6.000,00", "Sem prioridade. \n3 disponíveis!" ) {
-                    context.startActivity(Intent(context, BuyActivity::class.java))
+                    BuyActivity.startActivity(context)
                 }
             }
         }

@@ -22,6 +22,6 @@ fun SpaceLarge() {
 }
 
 @Composable
-fun SpaceExtraLarge(text: String) {
+fun SpaceExtraLarge() {
     Spacer(modifier = Modifier.height(32.dp))
 }

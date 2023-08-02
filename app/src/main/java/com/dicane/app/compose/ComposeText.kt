@@ -27,6 +27,18 @@ fun TextTitle(text: String) {
 }
 
 @Composable
+fun TextTitleLarge(text: String) {
+    Text(
+        text = text,
+        style = TextStyle(
+            fontFamily = raleway_bold,
+            fontSize = 20.sp
+        )
+    )
+    SpaceSmall()
+}
+
+@Composable
 fun TextDefault(modifier: Modifier = Modifier, text: String) {
     Text(
         modifier = modifier,
