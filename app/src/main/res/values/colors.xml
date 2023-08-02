@@ -34,8 +34,8 @@
     <color name="scrim">#000000</color>
     <color name="off">#AAAAAA</color>
     <color name="accentColor">#ff005a</color>
-    <color name="accentColor2">#1757B8</color>
-    <color name="accentColor3">#303030</color>
+    <color name="accentBlue">#1757B8</color>
+    <color name="accentBlack">#303030</color>
     <color name="accentColor4">#FFFFFF</color>
 
     <color name="md_theme_dark_primary">#DBC831</color>

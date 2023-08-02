@@ -281,7 +281,7 @@ fun CardImage(imageId: Int) {
 fun ActionButton(
     modifier: Modifier? = null,
     text: String,
-    color: Int = R.color.accentColor3,
+    color: Int = R.color.accentBlack,
     onClick: () -> Unit = {}
 ) {
     val modifier = modifier ?: Modifier.defaultComponentPadding()
@@ -329,30 +329,24 @@ fun PriorityReservation(price: String, priority: String, sold: Boolean = false, 
             TextDefaultThin(text = priority)
         }
 
-        Box(
-            Modifier
+        val modifier = Modifier
             .weight(5f)
-        ) {
-            val modifier = Modifier
-                .align(Alignment.Center)
 
-            if (sold) {
-                ActionButton(
-                    modifier = modifier,
-                    text = "Vendido",
-                    color = R.color.off,
-                ) { }
-            } else {
-                ActionButton(
-                    modifier = modifier,
-                    text = "Reservar",
-                    color = R.color.accentColor2,
-                ) {
-                    onClick()
-                }
+        if (sold) {
+            ActionButton(
+                modifier = modifier,
+                text = "Vendido",
+                color = R.color.off,
+            ) { }
+        } else {
+            ActionButton(
+                modifier = modifier,
+                text = "Reservar",
+                color = R.color.accentBlue,
+            ) {
+                onClick()
             }
         }
-
 
     }
 }

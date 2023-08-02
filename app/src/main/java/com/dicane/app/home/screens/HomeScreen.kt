@@ -15,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.dicane.app.R
+import com.dicane.app.breeder.BreederHomeActivity
 import com.dicane.app.compose.*
 import com.dicane.app.litter.LitterDetailsActivity
 
@@ -36,7 +37,7 @@ fun HomeScreen() {
             text = "Garantimos alta qualidade e confiabilidade para nossos compradores."
         )
         ActionButton(text = "SEJA UM CRIADOR DI CANE") {
-//                startActivity(Intent(this@MainActivity, BreederHomeActivity::class.java))
+                context.startActivity(Intent(context, BreederHomeActivity::class.java))
         }
         SaleCard{startLitterDetailsActivity(context)}
         SaleCard{startLitterDetailsActivity(context)}
