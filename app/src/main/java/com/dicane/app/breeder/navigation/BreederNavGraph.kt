@@ -5,29 +5,30 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dicane.app.breeder.screens.BreederHomeScreen
-import com.dicane.app.breeder.screens.FormAwardsScreen
-import com.dicane.app.breeder.screens.FormCertificationsScreen
-import com.dicane.app.breeder.screens.FormNamePicDescScreen
+import com.dicane.app.breeder.screens.*
 
 @Composable
-fun BreederNavGraph(modifier: Modifier, navController: NavHostController) {
+fun BreederNavGraph(modifier: Modifier, navController: NavHostController, isLogged: Boolean = false) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = BreederScreen.BreederHome.route
+        startDestination = if (isLogged) BreederScreen.BreederHome.route
+        else BreederScreen.FormCnpjEmailPassword.route
     ) {
         composable(BreederScreen.BreederHome.route){
-            BreederHomeScreen()
+            BreederHomeScreen(navController)
+        }
+        composable(BreederScreen.FormCnpjEmailPassword.route){
+            FormCnpjEmailPasswordScreen(navController)
         }
         composable(BreederScreen.FormNamePicDesc.route){
             FormNamePicDescScreen(navController)
         }
         composable(BreederScreen.FormCertifications.route){
-            FormCertificationsScreen()
+            FormCertificationsScreen(navController)
         }
         composable(BreederScreen.FormAwards.route){
-            FormAwardsScreen()
+            FormAwardsScreen(navController)
         }
     }
 }

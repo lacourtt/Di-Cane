@@ -10,6 +10,7 @@ import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -33,13 +34,17 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dicane.app.R
 import com.dicane.app.litter.LitterDetailsActivity
 import com.dicane.app.ui.theme.*
 import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.android.material.R as MR
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -158,34 +163,6 @@ fun ImagesPager(images: List<Int>, pagerState: PagerState) {
             }
         }
     }
-}
-
-@Composable
-fun SearchDogTextField() {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    Box(
-        Modifier
-            .padding(vertical = 12.dp)
-    ) {
-        OutlinedTextField(
-            placeholder = { Text(text = "Pesquisar raça") },
-            value = text,
-            onValueChange = { newText ->
-                text = newText
-            },
-            trailingIcon = {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_search_grey),
-                    contentDescription = ""
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = colorResource(id = R.color.onPrimary)),
-            shape = RoundedCornerShape(8.dp),
-        )
-    }
-
 }
 
 @Composable

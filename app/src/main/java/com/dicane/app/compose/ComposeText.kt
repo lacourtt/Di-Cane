@@ -89,3 +89,16 @@ fun TextHighLightBlack(text: String) {
     )
     SpaceSmall()
 }
+
+@Composable
+fun TextSmallGray(text: String) {
+    Text(
+        text = text,
+        style = TextStyle(
+            fontFamily = roboto_regular,
+            fontSize = 17.sp,
+            color = Color.Gray
+        )
+    )
+    SpaceSmall()
+}

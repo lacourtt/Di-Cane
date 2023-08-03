@@ -5,19 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.dicane.app.breeder.navigation.BreederNavGraph
-import com.dicane.app.breeder.screens.FormNamePicDescScreen
-import com.dicane.app.buy.BuyActivity
 import com.dicane.app.ui.theme.DiCaneTheme
 
 class BreederHomeActivity : ComponentActivity() {
@@ -25,7 +20,11 @@ class BreederHomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DiCaneTheme {
-                BreederMainScreen()
+                var logged = false
+                val navController = rememberNavController()
+                Scaffold() {
+                    BreederNavGraph(modifier = Modifier.padding(it), navController = navController)
+                }
             }
         }
     }
@@ -38,14 +37,6 @@ class BreederHomeActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun BreederMainScreen() {
-    val navController = rememberNavController()
-    Scaffold() {
-        FormNamePicDescScreen(navController)
-        BreederNavGraph(modifier = Modifier.padding(it), navController = navController)
-    }
-}
 @Composable
 fun Greeting2(name: String) {
     Text(text = "Hello $name!")
