@@ -44,7 +44,7 @@ fun FormCnpjEmailPasswordScreen(navController: NavHostController) {
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                ActionButtonWhite(
+                ActionButtonBlue(
                     Modifier.align(Alignment.BottomCenter),
                     text = "Próximo"
                 ) {

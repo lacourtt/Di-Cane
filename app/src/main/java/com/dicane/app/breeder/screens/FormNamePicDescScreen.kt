@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.dicane.app.R
 import com.dicane.app.breeder.navigation.BreederScreen
+import com.dicane.app.camera.CameraActivity
 import com.dicane.app.compose.*
 
 @Composable
@@ -28,6 +30,8 @@ fun FormNamePicDescScreen(navController: NavHostController) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+
+    val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -42,7 +46,7 @@ fun FormNamePicDescScreen(navController: NavHostController) {
                 Image(
                     painter = painterResource(id = R.drawable.corso),
                     contentDescription = null,
-                    modifier = Modifier.clip(CircleShape),
+                    modifier = Modifier.clip(CircleShape),//.size(10.dp),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -57,6 +61,7 @@ fun FormNamePicDescScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .height(100.dp),
                 hint = "Insira uma breve descrição do seu trabalho como criador",
+                singleLine = false
             )
             SpaceMedium()
 
@@ -64,11 +69,12 @@ fun FormNamePicDescScreen(navController: NavHostController) {
                 Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                ActionButtonWhite(
+                ActionButtonBlue(
                     Modifier.align(Alignment.BottomCenter),
                     text = "Próximo"
                 ) {
-                    navController.navigate(BreederScreen.FormCertifications.route)
+                    CameraActivity.startActivity(context)
+//                    navController.navigate(BreederScreen.FormCertifications.route)
                 }
             }
 

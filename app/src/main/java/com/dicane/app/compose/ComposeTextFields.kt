@@ -51,7 +51,7 @@ fun CNPJTextField(modifier: Modifier? = null, hint: String) {
 }
 
 @Composable
-fun DefaultTextField(modifier: Modifier? = null, hint: String) {
+fun DefaultTextField(modifier: Modifier? = null, hint: String, singleLine: Boolean = true) {
     var text by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
@@ -63,7 +63,7 @@ fun DefaultTextField(modifier: Modifier? = null, hint: String) {
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
         ),
-        singleLine = true,
+        singleLine = singleLine,
         textStyle = defaultTextStyle(),
         colors = defaultTextFieldColors(),
     )
