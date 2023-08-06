@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        compose_version = '1.4.1'
+        compose_version = '1.4.3'
         compose_nav_version = '2.6.0'
         camerax_version = '1.2.3'
         coil_version = '2.4.0'

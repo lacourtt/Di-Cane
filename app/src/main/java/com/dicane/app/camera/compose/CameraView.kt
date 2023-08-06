@@ -1,13 +1,8 @@
 package com.dicane.app.camera.compose
 
-import android.app.Activity
 import android.content.Context
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -23,7 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.Add
+import androidx.compose.material.icons.sharp.Lens
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -34,7 +29,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.text.SimpleDateFormat
@@ -50,7 +44,6 @@ fun CameraView(
     onImageCaptured: (Uri) -> Unit,
     onError: (ImageCaptureException) -> Unit
 ) {
-    // 1
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -62,7 +55,6 @@ fun CameraView(
         .requireLensFacing(lensFacing)
         .build()
 
-    // 2
     LaunchedEffect(lensFacing) {
         val cameraProvider = context.getCameraProvider()
         cameraProvider.unbindAll()
@@ -76,14 +68,12 @@ fun CameraView(
         preview.setSurfaceProvider(previewView.surfaceProvider)
     }
 
-    // 3
     Box(contentAlignment = Alignment.BottomCenter, modifier = Modifier.fillMaxSize()) {
         AndroidView({ previewView }, modifier = Modifier.fillMaxSize())
 
         IconButton(
             modifier = Modifier.padding(bottom = 20.dp),
             onClick = {
-                Log.i("kilo", "ON CLICK")
                 takePhoto(
                     filenameFormat = "yyyy-MM-dd-HH-mm-ss-SSS",
                     imageCapture = imageCapture,
@@ -95,7 +85,7 @@ fun CameraView(
             },
             content = {
                 Icon(
-                    imageVector = Icons.Sharp.Add,
+                    imageVector = Icons.Sharp.Lens,
                     contentDescription = "Take picture",
                     tint = Color.White,
                     modifier = Modifier
@@ -126,7 +116,7 @@ private fun takePhoto(
 
     imageCapture.takePicture(outputOptions, executor, object: ImageCapture.OnImageSavedCallback {
         override fun onError(exception: ImageCaptureException) {
-            Log.e("kilo", "Take photo error:", exception)
+            Log.e("igor", "Take photo error:", exception)
             onError(exception)
         }
 
@@ -142,35 +132,5 @@ private suspend fun Context.getCameraProvider(): ProcessCameraProvider = suspend
         cameraProvider.addListener({
             continuation.resume(cameraProvider.get())
         }, ContextCompat.getMainExecutor(this))
-    }
-}
-
-fun Context.requestCameraPermission() {
-    when {
-        ContextCompat.checkSelfPermission(
-            this,
-            android.Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED -> {
-            Log.i("kilo", "Permission previously granted")
-        }
-
-        ActivityCompat.shouldShowRequestPermissionRationale(
-            this as Activity,
-            android.Manifest.permission.CAMERA
-        ) -> Log.i("kilo", "Show camera permissions dialog")
-
-        else -> requestPermissionLauncher().launch(android.Manifest.permission.CAMERA)
-    }
-}
-
-private fun Context.requestPermissionLauncher(): ActivityResultLauncher<String> {
-    return (this as AppCompatActivity).registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            Log.i("kilo", "Permission granted")
-        } else {
-            Log.i("kilo", "Permission denied")
-        }
     }
 }
