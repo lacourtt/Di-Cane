@@ -11,10 +11,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
@@ -22,6 +27,7 @@ import androidx.core.content.ContextCompat
 import coil.compose.rememberAsyncImagePainter
 import com.dicane.app.R
 import com.dicane.app.camera.compose.CameraView
+import com.dicane.app.compose.ActionButtonBlue
 import com.dicane.app.ui.theme.DiCaneTheme
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -48,11 +54,33 @@ class CameraActivity : ComponentActivity() {
                 )
             }
             if (shouldShowPhoto.value) {
-                Image(
-                    painter = rememberAsyncImagePainter(photoUri),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
-                )
+                Box {
+                    Image(
+                        painter = rememberAsyncImagePainter(photoUri),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(0.9f)
+                            .align(Alignment.BottomCenter),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        ActionButtonBlue(
+                            text = "Tirar outra",
+                            onClick = {
+                                shouldShowPhoto.value = false
+                                shouldShowCamera.value = true
+                            })
+                        ActionButtonBlue(
+                            text = "Continuar",
+                            onClick = {
+                                setResult(RESULT_OK, Intent().apply {
+                                    putExtra("photoUri", photoUri)
+                                })
+                                finish()
+                            })
+                    }
+                }
             }
         }
 

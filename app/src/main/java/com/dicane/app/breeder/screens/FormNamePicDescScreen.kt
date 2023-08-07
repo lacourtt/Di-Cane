@@ -73,8 +73,7 @@ fun FormNamePicDescScreen(navController: NavHostController) {
                     Modifier.align(Alignment.BottomCenter),
                     text = "Próximo"
                 ) {
-                    CameraActivity.startActivity(context)
-//                    navController.navigate(BreederScreen.FormCertifications.route)
+                    navController.navigate(BreederScreen.FormPhoto.route)
                 }
             }
 

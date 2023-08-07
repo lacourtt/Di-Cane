@@ -13,10 +13,16 @@ fun BreederNavGraph(modifier: Modifier, navController: NavHostController, isLogg
         modifier = modifier,
         navController = navController,
         startDestination = if (isLogged) BreederScreen.BreederHome.route
-        else BreederScreen.FormCnpjEmailPassword.route
+        else BreederScreen.FormInitialMessage.route
     ) {
         composable(BreederScreen.BreederHome.route){
             BreederHomeScreen(navController)
+        }
+        composable(BreederScreen.FormInitialMessage.route){
+            FormInitialMessageScreen(navController)
+        }
+        composable(BreederScreen.FormPhoto.route){
+            FormPhotoScreen(navController)
         }
         composable(BreederScreen.FormCnpjEmailPassword.route){
             FormCnpjEmailPasswordScreen(navController)
